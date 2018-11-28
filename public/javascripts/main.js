@@ -1,4 +1,28 @@
 tareas();
+
+console.log(document.forms.formRegistrar.user.value);
+
+document.querySelector("#formRegistrar").addEventListener('submit',function(e)
+{
+    e.preventDefault();
+    let data = {
+        user : document.forms.formRegistrar.user.value,
+        password : document.forms.formRegistrar.password.value,
+        rol : document.forms.formRegistrar.rol.value
+    }
+    console.log(data);
+    fetch('/users',{
+        method:"POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+    .then(response =>{
+        tareas();
+    })
+    .catch(err=> console.log(err))
+});
 function tareas()
 {
     fetch('/users',
